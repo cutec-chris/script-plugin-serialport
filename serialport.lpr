@@ -3,10 +3,7 @@ library serialport;
 {$mode objfpc}{$H+}
 
 uses
-  Classes,sysutils,synaser,utils, general_nogui
-  {$IFDEF WINDOWS}
-  ,Windows,registry
-  {$ENDIF}
+  Classes,sysutils,synaser,utils, general_nogui{$IFDEF WINDOWS},Windows,registry{$ENDIF}
   ;
 
 type
@@ -28,7 +25,7 @@ begin
   if aDev.Handle<>INVALID_HANDLE_VALUE then
     begin
       Ports.Add(aDev);
-      Result := aDev.Handle;
+      Result := Ports.Count-1;
     end
   else aDev.Free;
 end;
@@ -40,7 +37,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         aDev := TBlockSerial(Ports[i]);
         Ports.Remove(aDev);
@@ -57,7 +54,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         TBlockSerial(Ports[i]).Flush;
         exit;
@@ -70,8 +67,9 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
+        TBlockSerial(Ports[i]).CloseSocket;
         TBlockSerial(Ports[i]).GetCommState;
         TBlockSerial(Ports[i]).DCB.BaudRate:=BitsPerSec;
         TBlockSerial(Ports[i]).DCB.ByteSize:=ByteSize;
@@ -87,6 +85,7 @@ begin
             TBlockSerial(Ports[i]).dcb.Flags := TBlockSerial(Ports[i]).dcb.Flags or dcb_OutxCtsFlow or dcb_RtsControlHandshake
           end;
         TBlockSerial(Ports[i]).SetCommState;
+        TBlockSerial(Ports[i]).Connect(TBlockSerial(Ports[i]).Device);
         exit;
       end;
 end;
@@ -99,7 +98,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         SetLength(Data,Count);
         TBlockSerial(Ports[i]).RecvBuffer(@Data[1],Count);
@@ -120,7 +119,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         aTime := GetTicks;
         iData := '';
@@ -142,7 +141,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         Result := TBlockSerial(Ports[i]).CTS;
         exit;
@@ -155,7 +154,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         Result := TBlockSerial(Ports[i]).DSR;
         exit;
@@ -168,7 +167,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         TBlockSerial(Ports[i]).RTS := Value;
         exit;
@@ -181,7 +180,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         TBlockSerial(Ports[i]).EnableRTSToggle(Value);
         if Value then
@@ -197,7 +196,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         TBlockSerial(Ports[i]).DTR := Value;
         exit;
@@ -210,7 +209,7 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Handle=Handle then
+    if i=Handle then
       begin
         TBlockSerial(Ports[i]).SendBuffer(Data,Len);
         Result := length(Data);

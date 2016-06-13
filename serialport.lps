@@ -4,13 +4,13 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="25">
+    <Units Count="26">
       <Unit0>
         <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="14"/>
-        <CursorPos X="120" Y="25"/>
+        <TopLine Value="53"/>
+        <CursorPos X="26" Y="71"/>
         <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -102,8 +102,7 @@
       </Unit12>
       <Unit13>
         <Filename Value="serial_win.pp"/>
-        <UnitName Value="serial_win"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="100"/>
         <CursorPos X="53" Y="19"/>
         <UsageCount Value="24"/>
@@ -125,9 +124,9 @@
       </Unit15>
       <Unit16>
         <Filename Value="serial_osx.pp"/>
-        <UnitName Value="serial_osx"/>
-        <EditorIndex Value="4"/>
-        <CursorPos X="45" Y="21"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="12"/>
+        <CursorPos X="10" Y="34"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -146,12 +145,10 @@
       </Unit18>
       <Unit19>
         <Filename Value="..\components\synapse\synaser.pas"/>
-        <UnitName Value="synaser"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="91"/>
         <CursorPos X="10" Y="759"/>
         <UsageCount Value="18"/>
-        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\components\pascalscript\uPSRuntime.pas"/>
@@ -176,95 +173,99 @@
       </Unit22>
       <Unit23>
         <Filename Value="..\..\..\general\src\Utils.pas"/>
-        <UnitName Value="Utils"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="500"/>
         <CursorPos Y="533"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="C:\Programme\lazarus140\fpc\2.6.4\source\packages\fcl-registry\src\registry.pp"/>
-        <UnitName Value="registry"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="71"/>
         <CursorPos X="14" Y="95"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit24>
+      <Unit25>
+        <Filename Value="..\..\..\components\synapse\synaser.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="923"/>
+        <CursorPos X="3" Y="931"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit25>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="245" TopLine="226"/>
+        <Caret Line="248" TopLine="226"/>
       </Position1>
       <Position2>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="247" TopLine="226"/>
+        <Caret Line="249" TopLine="226"/>
       </Position2>
       <Position3>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="248" TopLine="226"/>
+        <Caret Line="250" TopLine="226"/>
       </Position3>
       <Position4>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="249" TopLine="226"/>
+        <Caret Line="251" TopLine="226"/>
       </Position4>
       <Position5>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="251" TopLine="226"/>
+        <Caret Line="253" TopLine="226"/>
       </Position5>
       <Position6>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="247" TopLine="226"/>
+        <Caret Line="340" Column="12" TopLine="304"/>
       </Position6>
       <Position7>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="248" TopLine="226"/>
+        <Caret Line="28" Column="3" TopLine="14"/>
       </Position7>
       <Position8>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="249" TopLine="226"/>
+        <Caret Line="242" TopLine="223"/>
       </Position8>
       <Position9>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="250" TopLine="226"/>
+        <Caret Line="23" Column="15" TopLine="13"/>
       </Position9>
       <Position10>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="251" TopLine="226"/>
+        <Caret Line="30" Column="23" TopLine="12"/>
       </Position10>
       <Position11>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="253" TopLine="226"/>
+        <Caret Line="28" Column="24" TopLine="14"/>
       </Position11>
       <Position12>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="340" Column="12" TopLine="304"/>
+        <Caret Line="23" TopLine="14"/>
       </Position12>
       <Position13>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="28" Column="3" TopLine="14"/>
+        <Caret Line="24" TopLine="14"/>
       </Position13>
       <Position14>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="242" TopLine="223"/>
+        <Caret Line="25" TopLine="14"/>
       </Position14>
       <Position15>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="23" Column="15" TopLine="13"/>
+        <Caret Line="26" TopLine="14"/>
       </Position15>
       <Position16>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="30" Column="23" TopLine="12"/>
+        <Caret Line="27" TopLine="14"/>
       </Position16>
       <Position17>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="28" Column="24" TopLine="14"/>
+        <Caret Line="28" Column="39" TopLine="14"/>
       </Position17>
       <Position18>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="23" TopLine="14"/>
+        <Caret Line="26" Column="16" TopLine="14"/>
       </Position18>
       <Position19>
         <Filename Value="serialport.lpr"/>
@@ -284,103 +285,36 @@
       </Position22>
       <Position23>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="28" Column="39" TopLine="14"/>
+        <Caret Line="28" TopLine="14"/>
       </Position23>
       <Position24>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="26" Column="16" TopLine="14"/>
+        <Caret Line="33" TopLine="14"/>
       </Position24>
       <Position25>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="24" TopLine="14"/>
+        <Caret Line="56" TopLine="17"/>
       </Position25>
       <Position26>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="25" TopLine="14"/>
+        <Caret Line="7"/>
       </Position26>
       <Position27>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="26" TopLine="14"/>
+        <Caret Line="244" Column="8" TopLine="244"/>
       </Position27>
       <Position28>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="27" TopLine="14"/>
+        <Caret Line="6" Column="48"/>
       </Position28>
       <Position29>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="28" TopLine="14"/>
+        <Caret Line="72" Column="37" TopLine="55"/>
       </Position29>
       <Position30>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="33" TopLine="14"/>
+        <Caret Line="85" Column="57" TopLine="53"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="9">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="198"/>
-      </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="182"/>
-      </Item2>
-      <Item3>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="169"/>
-      </Item3>
-      <Item4>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="156"/>
-      </Item4>
-      <Item5>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="143"/>
-      </Item5>
-      <Item6>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="121"/>
-      </Item6>
-      <Item7>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="100"/>
-      </Item7>
-      <Item8>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="71"/>
-      </Item8>
-      <Item9>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="58"/>
-      </Item9>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>
