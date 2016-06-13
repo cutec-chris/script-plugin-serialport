@@ -13,11 +13,11 @@ var
   Ports : TList = nil;
   aData: String;
 
-function SerOpen(const DeviceName: String): LongInt;stdcall;
+function SerOpen(const DeviceName: String): Integer;stdcall;
 var
   aDev: TBlockSerial;
 begin
-  Result := 0;
+  Result := -1;
   if not Assigned(Ports) then
     Ports := TList.Create;
   aDev := TBlockSerial.Create;
@@ -66,26 +66,30 @@ var
   i: Integer;
 begin
   if not Assigned(Ports) then exit;
+  case StopBits of
+  1:StopBits:=0;
+  2:StopBits:=2;
+  3:StopBits:=1;
+  end;
   for i := 0 to Ports.Count-1 do
     if i=Handle then
       begin
-        TBlockSerial(Ports[i]).CloseSocket;
-        TBlockSerial(Ports[i]).GetCommState;
-        TBlockSerial(Ports[i]).DCB.BaudRate:=BitsPerSec;
-        TBlockSerial(Ports[i]).DCB.ByteSize:=ByteSize;
-        case Parity of
-        NoneParity:TBlockSerial(Ports[i]).DCB.Parity:=0;
-        OddParity:TBlockSerial(Ports[i]).DCB.Parity:=1;
-        EvenParity:TBlockSerial(Ports[i]).DCB.Parity:=2;
-        end;
-        TBlockSerial(Ports[i]).DCB.StopBits:=StopBits;
-        TBlockSerial(Ports[i]).DCB.flags:=dcb_Binary;
         if TBlockSerial(Ports[i]).tag<>1 then
           begin
-            TBlockSerial(Ports[i]).dcb.Flags := TBlockSerial(Ports[i]).dcb.Flags or dcb_OutxCtsFlow or dcb_RtsControlHandshake
+            case Parity of
+            NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,False,False);
+            OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,False,False);
+            EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,False,False);
+            end;
+          end
+        else
+          begin
+            case Parity of
+            NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,False,True);
+            OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,False,True);
+            EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,False,True);
+            end;
           end;
-        TBlockSerial(Ports[i]).SetCommState;
-        TBlockSerial(Ports[i]).Connect(TBlockSerial(Ports[i]).Device);
         exit;
       end;
 end;
@@ -281,7 +285,7 @@ begin
        +#10+'interface'
        +#10+'type'
        +#10+'  TParityType = (NoneParity, OddParity, EvenParity);'
-       +#10+'  function SerOpen(const DeviceName: String): LongInt;external ''SerOpen@%dllpath% stdcall'';'
+       +#10+'  function SerOpen(const DeviceName: String): Integer;external ''SerOpen@%dllpath% stdcall'';'
        +#10+'  procedure SerClose(Handle: LongInt);external ''SerClose@%dllpath% stdcall'';'
        +#10+'  procedure SerFlush(Handle: LongInt);external ''SerFlush@%dllpath% stdcall'';'
        +#10+'  function SerRead(Handle: LongInt; Count: LongInt): string;'
