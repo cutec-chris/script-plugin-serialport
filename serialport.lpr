@@ -127,9 +127,9 @@ begin
       begin
         aTime := GetTicks;
         iData := '';
-        iData := TBlockSerial(Ports[i]).RecvPacket(Timeout);
+        iData := TBlockSerial(Ports[i]).RecvPacket(1);
         while (length(iData)<Count) and (GetTicks-aTime<Timeout) do
-          iData := iData+TBlockSerial(Ports[i]).RecvPacket(Timeout);
+          iData := iData+TBlockSerial(Ports[i]).RecvPacket(30);
         Result := length(iData);
         aData := '';
         for a := 1 to length(iData) do
