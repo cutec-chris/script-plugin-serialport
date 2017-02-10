@@ -92,24 +92,40 @@ var
   i: Integer;
 begin
   if not Assigned(Ports) then exit;
-  case StopBits of
-  1:StopBits:=0;
-  2:StopBits:=2;
-  3:StopBits:=1;
-  end;
   for i := 0 to Ports.Count-1 do
     if i=Handle then
       begin
         if TBlockSerial(Ports[i]).tag<>1 then
           begin
+            TBlockSerial(Ports[i]).CloseSocket;
+            TBlockSerial(Ports[i]).GetCommState;
+            TBlockSerial(Ports[i]).DCB.BaudRate:=BitsPerSec;
+            TBlockSerial(Ports[i]).DCB.ByteSize:=ByteSize;
+            case Parity of
+            NoneParity:TBlockSerial(Ports[i]).DCB.Parity:=0;
+            OddParity:TBlockSerial(Ports[i]).DCB.Parity:=1;
+            EvenParity:TBlockSerial(Ports[i]).DCB.Parity:=2;
+            end;
+            TBlockSerial(Ports[i]).DCB.StopBits:=StopBits;
+            TBlockSerial(Ports[i]).DCB.flags:=dcb_Binary;
+            TBlockSerial(Ports[i]).dcb.Flags := TBlockSerial(Ports[i]).dcb.Flags or dcb_OutxCtsFlow or dcb_RtsControlHandshake;
+            TBlockSerial(Ports[i]).SetCommState;
+            TBlockSerial(Ports[i]).Connect(TBlockSerial(Ports[i]).Device);
+{
             case Parity of
             NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,False,False);
             OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,False,False);
             EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,False,False);
             end;
+}
           end
         else
           begin
+            case StopBits of
+            1:StopBits:=0;
+            2:StopBits:=2;
+            3:StopBits:=1;
+            end;
             case Parity of
             NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,False,True);
             OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,False,True);
