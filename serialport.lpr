@@ -16,36 +16,10 @@ var
 function SerOpen(const DeviceName: String): Integer;stdcall;
 var
   aDev: TBlockSerial;
-  i: Integer;
 begin
   Result := -1;
   if not Assigned(Ports) then
     Ports := TList.Create;
-  for i := 0 to Ports.Count-1 do
-    if TBlockSerial(Ports[i]).Device=DeviceName then
-      begin
-        aDev := TBlockSerial(Ports[i]);
-        if aDev.Handle<>INVALID_HANDLE_VALUE then
-          begin
-            Result := i;
-            exit;
-          end
-        else
-          begin
-            aDev.Connect(DeviceName);
-            if aDev.Handle<>INVALID_HANDLE_VALUE then
-              begin
-                Result := i;
-                exit;
-              end
-            else
-              begin
-                Ports.Delete(i);
-                aDev.Free;
-                break;
-              end;
-          end;
-      end;
   aDev := TBlockSerial.Create;
   aDev.Connect(DeviceName);
   if aDev.Handle<>INVALID_HANDLE_VALUE then
@@ -92,46 +66,19 @@ var
   i: Integer;
 begin
   if not Assigned(Ports) then exit;
+  case StopBits of
+  1:StopBits:=0;
+  2:StopBits:=2;
+  3:StopBits:=1;
+  end;
   for i := 0 to Ports.Count-1 do
     if i=Handle then
       begin
-        if TBlockSerial(Ports[i]).tag<>1 then
-          begin
-            TBlockSerial(Ports[i]).CloseSocket;
-            TBlockSerial(Ports[i]).GetCommState;
-            TBlockSerial(Ports[i]).DCB.BaudRate:=BitsPerSec;
-            TBlockSerial(Ports[i]).DCB.ByteSize:=ByteSize;
-            case Parity of
-            NoneParity:TBlockSerial(Ports[i]).DCB.Parity:=0;
-            OddParity:TBlockSerial(Ports[i]).DCB.Parity:=1;
-            EvenParity:TBlockSerial(Ports[i]).DCB.Parity:=2;
-            end;
-            TBlockSerial(Ports[i]).DCB.StopBits:=StopBits;
-            TBlockSerial(Ports[i]).DCB.flags:=dcb_Binary;
-            TBlockSerial(Ports[i]).dcb.Flags := TBlockSerial(Ports[i]).dcb.Flags or dcb_OutxCtsFlow or dcb_RtsControlHandshake;
-            TBlockSerial(Ports[i]).SetCommState;
-            TBlockSerial(Ports[i]).Connect(TBlockSerial(Ports[i]).Device);
-{
-            case Parity of
-            NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,False,False);
-            OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,False,False);
-            EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,False,False);
-            end;
-}
-          end
-        else
-          begin
-            case StopBits of
-            1:StopBits:=0;
-            2:StopBits:=2;
-            3:StopBits:=1;
-            end;
-            case Parity of
-            NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,False,True);
-            OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,False,True);
-            EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,False,True);
-            end;
-          end;
+        case Parity of
+        NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,False,False);
+        OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,False,False);
+        EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,False,False);
+        end;
         exit;
       end;
 end;
@@ -169,9 +116,9 @@ begin
       begin
         aTime := GetTicks;
         iData := '';
-        iData := TBlockSerial(Ports[i]).RecvPacket(1);
+        iData := TBlockSerial(Ports[i]).RecvPacket(Timeout);
         while (length(iData)<Count) and (GetTicks-aTime<Timeout) do
-          iData := iData+TBlockSerial(Ports[i]).RecvPacket(30);
+          iData := iData+TBlockSerial(Ports[i]).RecvPacket(Timeout);
         Result := length(iData);
         aData := '';
         for a := 1 to length(iData) do
@@ -400,3 +347,4 @@ exports
   ScriptCleanup;
 
 end.
+
