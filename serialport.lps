@@ -9,8 +9,8 @@
         <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="63"/>
-        <CursorPos Y="82"/>
+        <TopLine Value="349"/>
+        <CursorPos Y="392"/>
         <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -263,7 +263,7 @@
         <UsageCount Value="9"/>
       </Unit36>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="..\..\..\components\synapse\synaser.pas"/>
         <Caret Line="2131" TopLine="2094"/>
@@ -332,6 +332,10 @@
         <Filename Value="serialport.lpr"/>
         <Caret Line="55" Column="20" TopLine="44"/>
       </Position17>
+      <Position18>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="54" Column="3" TopLine="13"/>
+      </Position18>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
