@@ -45,15 +45,29 @@ begin
         begin
           aDev := TBlockSerial(Ports[i]);
           Ports.Remove(aDev);
+          aDev.CloseSocket;
           aDev.Free;
-          if Ports.Count=0 then
-            FreeAndNil(Ports);
           exit;
         end;
   except
   end;
 end;
-
+procedure SerCloseAll; stdcall;
+var
+  i: Integer;
+  aDev: TBlockSerial;
+begin
+  try
+    if not Assigned(Ports) then exit;
+    for i := 0 to Ports.Count-1 do
+      begin
+        aDev := TBlockSerial(Ports[i]);
+        Ports.Remove(aDev);
+        aDev.Free;
+      end;
+  except
+  end;
+end;
 procedure SerFlush(Handle: LongInt); stdcall;
 var
   i: Integer;
@@ -318,6 +332,7 @@ begin
        +#10+'  TParityType = (NoneParity, OddParity, EvenParity);'
        +#10+'  function SerOpen(const DeviceName: String): Integer;external ''SerOpen@%dllpath% stdcall'';'
        +#10+'  procedure SerClose(Handle: LongInt);external ''SerClose@%dllpath% stdcall'';'
+       +#10+'  procedure SerCloseAll;external ''SerCloseAll@%dllpath% stdcall'';'
        +#10+'  procedure SerFlush(Handle: LongInt);external ''SerFlush@%dllpath% stdcall'';'
        +#10+'  function SerRead(Handle: LongInt; Count: LongInt): string;'
        +#10+'  function SerReadTimeout(Handle: LongInt;Timeout: Integer;Count: LongInt) : string;'
@@ -373,6 +388,7 @@ end;
 exports
   SerOpen,
   SerClose,
+  SerCloseAll,
   SerFlush,
   SerReadEx,
   SerReadTimeoutEx,
