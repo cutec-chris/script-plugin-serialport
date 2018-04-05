@@ -16,11 +16,24 @@ var
 function SerOpen(const DeviceName: String): Integer;stdcall;
 var
   aDev: TBlockSerial;
+  i : Integer;
 begin
   Result := -1;
   try
     if not Assigned(Ports) then
       Ports := TList.Create;
+    for i := 0 to Ports.Count-1 do
+      if TBlockSerial(Ports[i]).Device=DeviceName then
+        begin
+          aDev := TBlockSerial(Ports[i]);
+          if aDev.Handle=INVALID_HANDLE_VALUE then
+            aDev.Connect(DeviceName);
+          if aDev.Handle<>INVALID_HANDLE_VALUE then
+            begin
+              Result := i;
+              exit;
+            end;
+        end;
     aDev := TBlockSerial.Create;
     aDev.Connect(DeviceName);
     if aDev.Handle<>INVALID_HANDLE_VALUE then
